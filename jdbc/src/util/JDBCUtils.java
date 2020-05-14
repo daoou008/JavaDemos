@@ -1,94 +1,87 @@
 package util;
 
-import java.io.FileReader;
+import com.alibaba.druid.pool.DruidDataSourceFactory;
+
+import javax.sql.DataSource;
 import java.io.IOException;
-import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Properties;
 
-@SuppressWarnings("all")
+/**
+ * Druid连接池工具类
+ */
 public class JDBCUtils {
-    private static String url;
-    private static String userName;
-    private static String password;
-    private static String driver;
-    /**
-     * 创建静态代码块，加载jdbc.properties文件，读取连接字符串，并创建jdbc连接
-     */
+    private static DataSource ds;
+
     static {
-        Properties properties = new Properties();
         try {
-            ClassLoader classLoader = JDBCUtils.class.getClassLoader();
-            URL resource = classLoader.getResource("jdbc.properties");
-            properties.load(new FileReader(resource.getPath()));
-            url = properties.getProperty("url");
-            userName = properties.getProperty("userName");
-            password = properties.getProperty("password");
-            driver = properties.getProperty("driver");
-            Class.forName(driver);
+            //加载配置文件
+            Properties pro = new Properties();
+            pro.load(JDBCUtils.class.getClassLoader().getResourceAsStream("druid.properties"));
+            ds = DruidDataSourceFactory.createDataSource(pro);
         } catch (IOException e) {
             e.printStackTrace();
-        } catch (ClassNotFoundException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
     /**
-     * 连接对象
+     * 获取连接
      * @return
+     * @throws SQLException
      */
     public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(url, userName, password);
+        return ds.getConnection();
     }
 
     /**
      * 释放资源
-     * @param stmt
      * @param conn
+     * @param stmt
      */
     public static void close(Statement stmt, Connection conn){
-        if(null != stmt){
-            try {
-                stmt.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
-        if(null != conn){
-            try {
-                conn.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
-            }
-        }
+        close(null, stmt, conn);
     }
 
     /**
-     * 释放资源
+     * 释放资源，处理有带Result Set的情况
      * @param rs
      * @param stmt
      * @param conn
      */
     public static void close(ResultSet rs, Statement stmt, Connection conn){
-        if(null != rs){
+        if (null != rs) {
             try {
                 rs.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
-        if(null != stmt){
+        if (null != stmt) {
             try {
                 stmt.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
-        if(null != conn){
+        if (null != conn){
             try {
-                conn.close();
-            } catch (SQLException throwables) {
-                throwables.printStackTrace();
+                conn.close();   //归还连接
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * 获取连接池
+     * @return
+     */
+    public static DataSource getDataSource(){
+        return ds;
     }
 }

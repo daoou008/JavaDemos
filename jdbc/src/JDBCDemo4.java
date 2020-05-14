@@ -1,4 +1,4 @@
-import util.JDBCUtils;
+import util.JDBCUtilsC3p0;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +11,7 @@ public class JDBCDemo4 {
         PreparedStatement pstmt2 = null;
 
         try {
-            conn = JDBCUtils.getConnection();
+            conn = JDBCUtilsC3p0.getConnection();
             //开启事务
             conn.setAutoCommit(false);
 
@@ -43,8 +43,8 @@ public class JDBCDemo4 {
             }
             throwables.printStackTrace();
         } finally {
-            JDBCUtils.close(pstmt1, conn);
-            JDBCUtils.close(pstmt2, null);
+            JDBCUtilsC3p0.close(pstmt1, conn);
+            JDBCUtilsC3p0.close(pstmt2, null);
         }
 
     }

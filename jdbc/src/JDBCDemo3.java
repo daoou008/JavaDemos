@@ -1,5 +1,5 @@
 import person.Student;
-import util.JDBCUtils;
+import util.JDBCUtilsC3p0;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -17,7 +17,7 @@ public class JDBCDemo3 {
         Statement stmt = null;
         ResultSet rs = null;
         try {
-            conn = JDBCUtils.getConnection();
+            conn = JDBCUtilsC3p0.getConnection();
             stmt = conn.createStatement();
             String sql = "SELECT * FROM student;";
             rs = stmt.executeQuery(sql);
@@ -33,7 +33,7 @@ public class JDBCDemo3 {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         } finally {
-            JDBCUtils.close(rs, stmt, conn);
+            JDBCUtilsC3p0.close(rs, stmt, conn);
         }
 
         return result;

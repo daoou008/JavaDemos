@@ -1,10 +1,6 @@
-import person.User;
-import util.JDBCUtils;
+import util.JDBCUtilsC3p0;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 public class UserLogin {
@@ -34,7 +30,7 @@ public class UserLogin {
         ResultSet rs = null;
 
         try {
-            conn = JDBCUtils.getConnection();
+            conn = JDBCUtilsC3p0.getConnection();
             //String sql = "SELECT `username`, `password` FROM `user`";
             //String sql = "SELECT `username`, `password` FROM `user` WHERE `username` = '" + u + "' AND `password` = '" + p + "';";
             String sql = "SELECT * FROM `user` WHERE `username` = ? AND `password` = ?";
@@ -59,7 +55,7 @@ public class UserLogin {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            JDBCUtils.close(rs, pstmt, conn);
+            JDBCUtilsC3p0.close(rs, pstmt, conn);
         }
 
         return result;
