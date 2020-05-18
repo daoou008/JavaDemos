@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SlideShow</title>
+</head>
+<body>
+<img id="imgNY" src="img/CNY1.jpg" onclick="changePic()" height="100%"><br>
+<input type="button" id="btnBaidu" value="打开百度"><div id="newButton"></div>
+
+<script>
+    //document.getElementById("imgNY").onclick = changePic();
+
+    /*function changePic() {
+        var imgNum = document.getElementById("imgNY").src.toString().substr(-5,1);
+        switch (imgNum) {
+            case "1":
+                document.getElementById("imgNY").src = "img/CNY2.jpg";
+                break;
+            case "2":
+                document.getElementById("imgNY").src = "img/CNY3.jpg";
+                break;
+            case "3":
+                document.getElementById("imgNY").src = "img/CNY4.jpg";
+                break;
+            case "4":
+                document.getElementById("imgNY").src = "img/CNY5.jpg";
+                break;
+            case "5":
+                document.getElementById("imgNY").src = "img/CNY6.jpg";
+                break;
+            case "6":
+            default:
+                document.getElementById("imgNY").src = "img/CNY1.jpg";
+                break;
+        }
+    }*/
+
+    var num = 1;
+
+    function changePic() {
+        num++;
+        if (num > 6) {
+            num = 1;
+        }
+
+        var img = document.getElementById("imgNY");
+        img.src = "img/CNY" + num + ".jpg";
+    }
+
+    //setTimeout(setDefaultPic, 5000);
+    setInterval(changePic, 5000);
+
+/*    var baiDu = document.getElementById("btnBaidu");
+    var newBtnDiv = document.getElementById("newButton");
+    var newWindow;
+    baiDu.onclick = function () {
+        //打开百度，并生成“关闭百度”按钮，绑定关闭新窗口事件
+        newWindow = open("https://www.baidu.com");
+        var closeBaidu = "<input type='button' id='btnCloseBaidu' value='关闭百度' onclick='closeBaidu()'>";
+        newBtnDiv.innerHTML = closeBaidu;
+
+        //location.href = "https://www.baidu.com";
+    }
+
+    function closeBaidu () {
+        //关闭新窗口，并删除新按钮
+        close(newWindow);
+        var newBtn = document.getElementById("btnCloseBaidu");
+        if (newBtn){
+            newBtnDiv.removeChild(newBtn);
+        }
+    }*/
+</script>
+</body>
+</html>

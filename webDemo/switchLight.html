@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Turn - on - off</title>
+    <style>
+        h1 {
+            color: blueviolet;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="userHeader"></h1><br>
+    <img id = "light" src="img/off.png"><br>
+<!--    <input type="submit" onclick="turn();" accept="#" value="开关">-->
+
+<script>
+    var img = document.getElementById("light");
+    var flag = false;
+
+    img.onclick = turn;
+
+    function turn() {
+        if (flag){
+            img.src = "img/off.png";
+            flag = false;
+        } else {
+            img.src = "img/on.png";
+            flag = true;
+        }
+    }
+
+    /*var userName = prompt("请输入您的名字或昵称:");
+    userHeader.innerHTML = "欢迎您 " + userName;*/
+
+    //setInterval(turn, 1000);
+
+</script>
+</body>
+</html>
