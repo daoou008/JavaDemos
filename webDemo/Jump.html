@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>自动跳转</title>
+    <style>
+        #sNum {
+            color: red;
+        }
+
+        #pHead {
+            text-align: center;
+        }
+
+        #divInfo {
+            width: 200px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    </style>
+</head>
+<body>
+<div id="divInfo">
+    <p id="pHead">
+        <span id="sNum">
+            5
+        </span>
+        <span id="sContent">
+            秒之后,自动跳转首页...
+        </span>
+    </p>
+</div>
+
+<script>
+    var num = 5;
+    var changeNum = document.getElementById("sNum");
+
+    function changeNumber() {
+        num--;
+        changeNum.innerText = num;
+        if (num <= 0) {
+            location.href = "https://www.baidu.com";
+        }
+    }
+
+    setInterval(changeNumber, 1000);
+</script>
+</body>
+</html>

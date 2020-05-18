@@ -7,3 +7,11 @@ table {
 .div1 {
     margin-top: 200px;
 }
+
+.check_passed {
+    color: green;
+}
+
+.check_refused {
+    color: red;
+}

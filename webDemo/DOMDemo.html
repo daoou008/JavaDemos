@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DomDemo</title>
+    <style>
+        div {
+            border: red 1px solid;
+        }
+
+        #div1 {
+            width: 200px;
+            height: 200px;
+        }
+
+        #div2,#div3 {
+            width: 100px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div id="div1">
+        <div id="div2">
+            div2
+        </div>
+        div1
+    </div>
+    <a href="javascript:void(0);" id="lnkDel">删除子节点</a><br>
+    <a href="javascript:void(0);" id="lnkAdd">添加子节点</a><br>
+
+<script>
+    var delLink = document.getElementById("lnkDel");
+    var addLink = document.getElementById("lnkAdd");
+    var dv1 = document.getElementById("div1");
+    var dv2 = document.getElementById("div2");
+
+    delLink.onclick = function () {
+        dv1.removeChild(dv2);
+    }
+
+    addLink.onclick = function () {
+        var div3 = document.createElement("div");
+        div3.setAttribute("id", "div3");
+        dv1.appendChild(div3);
+    }
+</script>
+</body>
+</html>

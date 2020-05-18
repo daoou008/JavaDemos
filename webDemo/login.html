@@ -10,18 +10,67 @@
         }
     </style>-->
     <link rel="stylesheet" href="css/a.css">
+    <script>
+        window.onload = function () {
+            document.getElementById("userForm").onsubmit = function () {
+                return checkName() && checkPassword();
+            };
+            document.getElementById("inUserName").onblur = checkName;
+            document.getElementById("inPassword").onblur = checkPassword;
+        }
+
+        function checkName() {
+            var checkSpan = document.getElementById("sNameCheck");
+            var userName = document.getElementById("inUserName").value;
+            //用户名校验，6~12个字符
+            var reg_user = /^\w{6,12}$/;
+            var flag = reg_user.test(userName);
+            if (flag) {
+                checkSpan.innerText = "√";
+                checkSpan.className = "check_passed";
+            } else {
+                checkSpan.innerText = "请输入6~12个字符";
+                checkSpan.className = "check_refused";
+            }
+
+            return flag;
+        }
+
+        function checkPassword() {
+            var checkSpan = document.getElementById("sPWCheck");
+            var password = document.getElementById("inPassword").value;
+            //用户名校验，6~12个字符
+            var reg_Password = /^\w{6,12}$/;
+            var flag = reg_Password.test(password);
+            if (flag) {
+                checkSpan.innerText = "√";
+                checkSpan.className = "check_passed";
+            } else {
+                checkSpan.innerText = "密码为6~12个单词字符";
+                checkSpan.className = "check_refused";
+            }
+
+            return flag;
+        }
+    </script>
 </head>
 <body>
     <div class="div1">
-        <form action="#" method="post">
+        <form action="#" method="post" id="userForm">
             <table border="1" align="center" width="500">
                 <tr>
                     <td width="25%">用户名</td>
-                    <td><input placeholder="请输入账号" name="user"></td>
+                    <td>
+                        <input placeholder="请输入账号" name="user" id="inUserName">
+                        <span id="sNameCheck"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td width="25%">密码</td>
-                    <td><input placeholder="请输入密码" name="password"></td>
+                    <td>
+                        <input type="password" placeholder="请输入密码" name="password" id="inPassword">
+                        <span id="sPWCheck"></span>
+                    </td>
                 </tr>
                 <tr>
                     <td width="25%">Email</td>
